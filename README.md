@@ -43,6 +43,7 @@ lib/client.js
 - **Shared history:** presents timestamped audit and activity events.
 - **Privacy and masking:** enables sensitive-data masking, configurable mask keywords, and a global write-permission control.
 - **DSH-native settings integration:** registers the section through the `settings.section` slot with ID `sirchmunk` and order `35`.
+- **Bundled Agent Skill (`sirchmunk-search`):** provides a standardized skill that allows users and agents to actively query local knowledge and documents across 100+ file formats (PDF, DOCX, XLSX, Markdown, code, etc.) using the Sirchmunk MCP search tool (`mcp__sirchmunk__sirchmunk_search`). Supports `FAST`, `DEEP`, and `FILENAME_ONLY` modes.
 
 ### Install in DSH
 
@@ -148,6 +149,7 @@ lib/client.js
 - **共享历史：** 展示带时间戳的审计与活动记录。
 - **隐私与脱敏：** 提供敏感信息脱敏开关、可配置关键词和全局写操作权限。
 - **DSH 原生设置集成：** 通过 `settings.section` slot 注册，ID 为 `sirchmunk`，顺序为 `35`。
+- **内置 Agent Skill (`sirchmunk-search`)：** 提供内置的技能规范，支持使用者或 Agent 主动调用 Sirchmunk MCP 检索工具（`mcp__sirchmunk__sirchmunk_search`）对本地文档与知识库进行跨格式（PDF、Word、Excel、PPTX、Markdown、代码等 100+ 种格式）查询，支持 `FAST` 快速匹配、`DEEP` 深度大模型综合分析与 `FILENAME_ONLY` 仅文件名匹配模式。
 
 ### 在 DSH 中安装
 
