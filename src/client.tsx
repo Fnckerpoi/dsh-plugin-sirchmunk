@@ -19,6 +19,9 @@ interface ClientPluginContext {
   };
 }
 
+export const name = 'dsh-plugin-sirchmunk';
+export const inject = ['slots'];
+
 export function apply(ctx: ClientPluginContext): void {
   ctx.slots.inject('settings.section', () => ctx.slots.register({
     name: 'settings.section',

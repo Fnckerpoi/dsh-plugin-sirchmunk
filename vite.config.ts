@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env': '{}',
+  },
   build: {
     outDir: 'lib/.client-build',
     emptyOutDir: true,
@@ -13,7 +17,13 @@ export default defineConfig({
       fileName: () => 'client.cjs'
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        'react-dom/client'
+      ],
       output: {
         exports: 'named'
       }

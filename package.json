@@ -15,6 +15,9 @@
       "patch": "./cordis.patch.yml"
     },
     "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
       "platform": "web"
     }
   },
