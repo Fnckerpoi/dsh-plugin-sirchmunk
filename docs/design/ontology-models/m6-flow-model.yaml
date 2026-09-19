@@ -1,0 +1,86 @@
+model_type: FLOW
+version: '1.0'
+domain: Sirchmunk-DSH集成
+flows:
+- id: FLOW-DELEGATION
+  name: 检索委托流
+  flowType: COLLABORATION
+  description: 提问 -> MCP调用 -> 本地检索 -> 返回答案与证据 -> 结束
+  businessObjectRefs:
+  - AGG-DELEGATION-01
+  - AGG-RESULT-01
+  roleRefs:
+  - ROLE-USER
+  trigger:
+    triggerType: MANUAL
+  startActivity: A1
+  endActivities:
+  - A3
+  activities:
+  - activityId: A1
+    name: 开始
+    activityType: START
+    nextActivities:
+    - A2
+  - activityId: A2
+    name: 发起委托
+    activityType: USER_TASK
+    roleRef: ROLE-USER
+    behaviorRef: Search_Delegate
+    nextActivities:
+    - A3
+  - activityId: A3
+    name: 结束
+    activityType: END
+    nextActivities: []
+- id: FLOW-MGMT
+  name: 管理与图谱访问流
+  flowType: COLLABORATION
+  description: 进入入口 -> 鉴权 -> 读取数据 -> (写) -> 刷新 -> 结束
+  businessObjectRefs:
+  - AGG-CONNECTION-01
+  - AGG-EXT-CLUSTER-01
+  roleRefs:
+  - ROLE-USER
+  - ROLE-ADMIN
+  trigger:
+    triggerType: MANUAL
+  startActivity: B1
+  endActivities:
+  - B5
+  activities:
+  - activityId: B1
+    name: 开始
+    activityType: START
+    nextActivities:
+    - B2
+  - activityId: B2
+    name: 鉴权与读取数据
+    activityType: USER_TASK
+    roleRef: ROLE-USER
+    behaviorRef: Q_ConnStatus
+    nextActivities:
+    - B3
+  - activityId: B3
+    name: 是否执行写操作
+    activityType: GATEWAY
+    branches:
+    - branchName: 写操作
+      conditionExpression: write == true
+      targetActivity: B4
+      isDefault: false
+    - branchName: 直接结束
+      conditionExpression: write == false
+      targetActivity: B5
+      isDefault: true
+  - activityId: B4
+    name: 修改连接
+    activityType: USER_TASK
+    roleRef: ROLE-ADMIN
+    behaviorRef: Conn_Update
+    nextActivities:
+    - B5
+  - activityId: B5
+    name: 结束
+    activityType: END
+    nextActivities: []

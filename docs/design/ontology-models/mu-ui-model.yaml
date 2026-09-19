@@ -1,0 +1,241 @@
+model_type: UI
+version: '1.0'
+domain: Sirchmunk-DSH集成
+application:
+  name: Sirchmunk集成
+  menus:
+  - menuId: m-settings
+    name: 设置
+    children:
+    - menuId: m-settings-conn
+      name: 连接管理
+      screenRef: scr-conn
+    - menuId: m-settings-mcp
+      name: MCP管理
+      screenRef: scr-mcp
+  - menuId: m-biz
+    name: 业务管理
+    children:
+    - menuId: m-biz-graph
+      name: 知识图谱
+      screenRef: scr-graph
+    - menuId: m-biz-cluster
+      name: 知识聚类
+      screenRef: scr-cluster
+    - menuId: m-biz-hist
+      name: 历史查询
+      screenRef: scr-hist
+    - menuId: m-biz-mon
+      name: 监控概览
+      screenRef: scr-mon
+    - menuId: m-biz-set
+      name: 应用设置
+      screenRef: scr-set
+  - menuId: m-ops
+    name: 检索入口
+    children:
+    - menuId: m-ops-search
+      name: 发起检索
+      screenRef: scr-search
+screens:
+- screenId: scr-conn
+  name: 服务连接管理
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │服务连接管理 [btnCreate]│
+
+    │@grd [btnEdit] [btnDeactivate]│
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-01
+  actions:
+  - actionId: a1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_ConnStatus
+  - actionId: a2
+    name: 创建
+    actionType: BUTTON
+    behaviorRef: Conn_Create
+  - actionId: a3
+    name: 修改
+    actionType: BUTTON
+    behaviorRef: Conn_Update
+  - actionId: a4
+    name: 停用
+    actionType: BUTTON
+    behaviorRef: Conn_Deactivate
+- screenId: scr-mcp
+  name: MCP绑定管理
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │MCP绑定管理 [btnBind]│
+
+    │@grd │
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-02
+  actions:
+  - actionId: b1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_McpStatus
+  - actionId: b2
+    name: 绑定
+    actionType: BUTTON
+    behaviorRef: Mcp_Bind
+- screenId: scr-graph
+  name: 知识图谱
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │知识图谱 [btnExportCur] [btnExportAll]│
+
+    │@grd │
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-03
+  actions:
+  - actionId: g1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_GraphTopo
+  - actionId: g2
+    name: 导出当前
+    actionType: BUTTON
+    behaviorRef: Graph_ExportCurrent
+  - actionId: g3
+    name: 导出全部
+    actionType: BUTTON
+    behaviorRef: Graph_ExportAll
+- screenId: scr-cluster
+  name: 知识聚类
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │知识聚类 [btnDel]│
+
+    │@grd │
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-04
+  actions:
+  - actionId: c1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_Cluster
+  - actionId: c2
+    name: 删除
+    actionType: BUTTON
+    behaviorRef: Cluster_Delete
+- screenId: scr-hist
+  name: 历史查询
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │历史查询 │
+
+    │@grd │
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-05
+  actions:
+  - actionId: h1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_History
+- screenId: scr-mon
+  name: 监控查询
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │监控查询 │
+
+    │@grd │
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-06
+  actions:
+  - actionId: m1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_Monitor
+- screenId: scr-set
+  name: 应用设置
+  screenType: QUERY_LIST
+  layout: '┌───────────────────────────┐
+
+    │应用设置 [btnUpdateUI]│
+
+    │@grd │
+
+    └───────────────────────────┘'
+  elements:
+  - id: grd
+    type: GRID
+    label: 列表
+    io: O
+    dataSource: REP-07
+  actions:
+  - actionId: s1
+    name: 查询
+    actionType: BUTTON
+    behaviorRef: Q_Settings
+  - actionId: s2
+    name: 修改UI设置
+    actionType: BUTTON
+    behaviorRef: Settings_UpdateUI
+- screenId: scr-search
+  name: 发起检索
+  screenType: MASTER_DETAIL_FORM
+  layout: '┌───────────────────────────┐
+
+    │检索 [btnSearch] [btnRetry]│
+
+    └───────────────────────────┘'
+  elements:
+  - id: btnSearch
+    type: BUTTON
+    label: 搜索
+    io: I
+  actions:
+  - actionId: s_search
+    name: 发起检索委托
+    actionType: BUTTON
+    behaviorRef: Search_Delegate
+  - actionId: s_retry
+    name: 重试检索
+    actionType: BUTTON
+    behaviorRef: Search_Retry

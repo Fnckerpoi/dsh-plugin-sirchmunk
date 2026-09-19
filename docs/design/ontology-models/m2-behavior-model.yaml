@@ -1,0 +1,170 @@
+model_type: BEHAVIOR
+version: '1.0'
+domain: Sirchmunk-DSH集成
+behaviors:
+- id: Conn_Create
+  name: 创建连接
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Conn_Update
+  name: 修改连接
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+  x_asyncFollowUp:
+  - behaviorRef: Conn_Check
+    boundary: AFTER_COMMIT_EXTERNAL_HEALTH_CHECK
+- id: Conn_Check
+  name: 检查连接
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: COMMAND
+  triggerType: SYSTEM_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Conn_Deactivate
+  name: 停用移除连接
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Mcp_Bind
+  name: 绑定MCP
+  ownerEntity: AGG-MCP-BINDING-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+  x_asyncFollowUp:
+  - behaviorRef: Mcp_Verify
+    boundary: AFTER_COMMIT_EXTERNAL_CAPABILITY_CHECK
+- id: Mcp_Verify
+  name: 验证MCP能力
+  ownerEntity: AGG-MCP-BINDING-01
+  behaviorType: COMMAND
+  triggerType: SYSTEM_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Search_Delegate
+  name: 发起检索委托
+  ownerEntity: AGG-DELEGATION-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  syncTriggers: []
+- id: Search_Consume
+  name: 消费结果
+  ownerEntity: AGG-RESULT-01
+  behaviorType: COMMAND
+  triggerType: SYSTEM_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  syncTriggers: []
+- id: Search_Retry
+  name: 重试检索
+  ownerEntity: AGG-DELEGATION-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  syncTriggers: []
+- id: Cluster_Delete
+  name: 删除聚类
+  ownerEntity: AGG-EXT-CLUSTER-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Settings_UpdateUI
+  name: 修改UI设置
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Graph_ExportCurrent
+  name: 导出当前图谱
+  ownerEntity: AGG-EXT-CLUSTER-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  syncTriggers: []
+- id: Graph_ExportAll
+  name: 导出全部图谱
+  ownerEntity: AGG-EXT-CLUSTER-01
+  behaviorType: COMMAND
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-ADMIN-ALL
+  syncTriggers: []
+- id: Q_ConnStatus
+  name: 连接状态查询
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-01
+- id: Q_McpStatus
+  name: MCP状态查询
+  ownerEntity: AGG-MCP-BINDING-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-02
+- id: Q_GraphTopo
+  name: 图谱拓扑查询
+  ownerEntity: AGG-EXT-RELATION-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-03
+- id: Q_Cluster
+  name: 知识聚类查询
+  ownerEntity: AGG-EXT-CLUSTER-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-04
+- id: Q_History
+  name: 历史查询
+  ownerEntity: AGG-DELEGATION-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-05
+- id: Q_Monitor
+  name: 监控查询
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-06
+- id: Q_Settings
+  name: 脱敏设置查询
+  ownerEntity: AGG-CONNECTION-01
+  behaviorType: QUERY
+  triggerType: USER_ACTION
+  requiredPermissions:
+  - PERM-USER-BASIC
+  queryReportRef: REP-07

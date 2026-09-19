@@ -1,0 +1,34 @@
+model_type: ACTOR
+version: '1.0'
+domain: Sirchmunk-DSH集成
+actors:
+- actorId: ACTOR-DSH-AGENT
+  name: DSH Agent
+  actorType: SYSTEM
+  roles:
+  - ROLE-USER
+- actorId: ACTOR-SIRCHMUNK-AGENT
+  name: Sirchmunk Agent
+  actorType: SYSTEM
+  x_externalActors: true
+  roles: []
+roles:
+- roleId: ROLE-USER
+  name: 使用者
+  permissions:
+  - PERM-USER-BASIC
+- roleId: ROLE-ADMIN
+  name: 管理员
+  inheritsFrom:
+  - ROLE-USER
+  permissions:
+  - PERM-ADMIN-ALL
+permissions:
+- permissionId: PERM-USER-BASIC
+  targetType: BEHAVIOR
+  targetRef: Search_Delegate
+  dataScope: ALL
+- permissionId: PERM-ADMIN-ALL
+  targetType: BEHAVIOR
+  targetRef: Conn_Create
+  dataScope: ALL

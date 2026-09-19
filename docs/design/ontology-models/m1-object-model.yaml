@@ -1,0 +1,145 @@
+model_type: OBJECT
+version: '1.0'
+domain: Sirchmunk-DSH集成
+aggregates:
+- id: AGG-CONNECTION-01
+  name: 服务连接
+  alias: SirchmunkConnection
+  aggregateType: AGGREGATE_ROOT
+  attributes:
+  - name: connectionId
+    label: 连接编号
+    type: String
+    required: true
+    unique: true
+  - name: url
+    label: 服务地址
+    type: String
+    required: true
+  - name: status
+    label: 状态
+    type: String
+    required: true
+- id: AGG-MCP-BINDING-01
+  name: MCP绑定
+  alias: McpBinding
+  aggregateType: AGGREGATE_ROOT
+  attributes:
+  - name: bindingId
+    label: 绑定编号
+    type: String
+    required: true
+    unique: true
+  - name: connectionId
+    label: 关联连接
+    type: String
+    required: true
+  - name: mcpStatus
+    label: MCP状态
+    type: String
+    required: true
+- id: AGG-PAGE-ENTRY-01
+  name: 管理页面入口
+  alias: ManagementPageEntry
+  aggregateType: AGGREGATE_ROOT
+  attributes:
+  - name: entryId
+    label: 入口编号
+    type: String
+    required: true
+    unique: true
+  - name: connectionId
+    label: 关联连接
+    type: String
+    required: true
+- id: AGG-DELEGATION-01
+  name: 检索委托
+  alias: SearchDelegation
+  aggregateType: AGGREGATE_ROOT
+  x_storage: RUNTIME_TRAJECTORY
+  attributes:
+  - name: delegationId
+    label: 委托编号
+    type: String
+    required: true
+    unique: true
+  - name: queryText
+    label: 检索提问
+    type: String
+    required: true
+  - name: status
+    label: 状态
+    type: String
+    required: true
+- id: AGG-RESULT-01
+  name: 检索结果
+  alias: SearchResult
+  aggregateType: AGGREGATE_ROOT
+  x_storage: RUNTIME_TRAJECTORY
+  attributes:
+  - name: resultId
+    label: 结果编号
+    type: String
+    required: true
+    unique: true
+  - name: delegationId
+    label: 关联委托
+    type: String
+    required: true
+  - name: answer
+    label: 回答文本
+    type: String
+    required: true
+- id: AGG-EVIDENCE-01
+  name: 证据来源引用
+  alias: EvidenceSourceRef
+  aggregateType: AGGREGATE_ROOT
+  x_storage: RUNTIME_TRAJECTORY
+  attributes:
+  - name: evidenceId
+    label: 证据编号
+    type: String
+    required: true
+    unique: true
+  - name: resultId
+    label: 关联结果
+    type: String
+    required: true
+  - name: sourcePath
+    label: 来源路径
+    type: String
+    required: true
+- id: AGG-EXT-CLUSTER-01
+  name: 外部知识聚类
+  alias: ExternalClusterRef
+  aggregateType: AGGREGATE_ROOT
+  x_storage: EXTERNAL_API
+  attributes:
+  - name: clusterId
+    label: 聚类编号
+    type: String
+    required: true
+    unique: true
+  - name: clusterName
+    label: 聚类名称
+    type: String
+    required: true
+- id: AGG-EXT-RELATION-01
+  name: 外部图谱关系
+  alias: ExternalGraphRelation
+  aggregateType: AGGREGATE_ROOT
+  x_storage: EXTERNAL_API
+  attributes:
+  - name: relationId
+    label: 关系编号
+    type: String
+    required: true
+    unique: true
+  - name: sourceClusterId
+    label: 源聚类
+    type: String
+    required: true
+  - name: targetClusterId
+    label: 目标聚类
+    type: String
+    required: true

@@ -1,0 +1,67 @@
+model_type: REPORT
+version: '1.0'
+domain: Sirchmunk-DSH集成
+query_reports:
+- id: REP-01
+  name: 连接状态
+  alias: ConnStatus
+  objectType: LIST_QUERY
+  behaviorRef: Q_ConnStatus
+  sourceObjects:
+  - objectRef: AGG-CONNECTION-01
+    alias: conn
+    primary: true
+- id: REP-02
+  name: MCP绑定状态
+  alias: McpStatus
+  objectType: LIST_QUERY
+  behaviorRef: Q_McpStatus
+  sourceObjects:
+  - objectRef: AGG-MCP-BINDING-01
+    alias: mcp
+    primary: true
+- id: REP-03
+  name: 图谱拓扑
+  alias: GraphTopo
+  objectType: LIST_QUERY
+  behaviorRef: Q_GraphTopo
+  sourceObjects:
+  - objectRef: AGG-EXT-RELATION-01
+    alias: topo
+    primary: true
+- id: REP-04
+  name: 知识聚类
+  alias: Cluster
+  objectType: LIST_QUERY
+  behaviorRef: Q_Cluster
+  sourceObjects:
+  - objectRef: AGG-EXT-CLUSTER-01
+    alias: cluster
+    primary: true
+- id: REP-05
+  name: 历史查询
+  alias: History
+  objectType: LIST_QUERY
+  behaviorRef: Q_History
+  sourceObjects:
+  - objectRef: AGG-DELEGATION-01
+    alias: hist
+    primary: true
+- id: REP-06
+  name: 运行监控
+  alias: Monitor
+  objectType: LIST_QUERY
+  behaviorRef: Q_Monitor
+  sourceObjects:
+  - objectRef: AGG-CONNECTION-01
+    alias: conn
+    primary: true
+- id: REP-07
+  name: 设置查询
+  alias: Settings
+  objectType: LIST_QUERY
+  behaviorRef: Q_Settings
+  sourceObjects:
+  - objectRef: AGG-CONNECTION-01
+    alias: conn
+    primary: true

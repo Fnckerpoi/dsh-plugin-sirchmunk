@@ -1,0 +1,13 @@
+{
+  "name": "Sirchmunk-DSH集成",
+  "version": "9.0",
+  "models": {
+    "m1": "m1-object-model.yaml",
+    "m2": "m2-behavior-model.yaml",
+    "m3": "m3-rule-model.yaml",
+    "m5": "m5-actor-model.yaml",
+    "m6": "m6-flow-model.yaml",
+    "m7": "m7-report-model.yaml",
+    "mu": "mu-ui-model.yaml"
+  }
+}

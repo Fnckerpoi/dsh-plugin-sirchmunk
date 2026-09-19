@@ -1,0 +1,14 @@
+model_type: RULE
+version: '1.0'
+domain: Sirchmunk-DSH集成
+rules:
+- id: RULE-URL-SECURE
+  name: 服务地址安全规则
+  ruleType: VALIDATION
+  expression: url.startsWith('http://') || url.startsWith('https://')
+  errorMessage: 服务地址必须以 http 或 https 开头
+- id: RULE-CLUSTER-DELETE
+  name: 聚类受控删除规则
+  ruleType: VALIDATION
+  expression: input.clusterName == current.clusterName
+  errorMessage: 必须输入准确的聚类名称确认删除
