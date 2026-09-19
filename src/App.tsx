@@ -10,21 +10,32 @@ export const App: React.FC = () => {
   const [status, setStatus] = useState<'checking' | 'online' | 'offline'>('checking');
   const [activeTab, setActiveTab] = useState<string>('graph');
 
-  useEffect(() => {
-    const checkConnection = async () => {
-      try {
-        const response = await fetch('http://localhost:8584/api/v1/health');
-        if (response.ok) {
-          setStatus('online');
-        } else {
-          setStatus('offline');
-        }
-      } catch (err) {
+  const checkConnection = async () => {
+    setStatus('checking');
+    try {
+      let response = await fetch('http://localhost:8584/health');
+      if (!response.ok) {
+        response = await fetch('http://localhost:8584/api/v1/health');
+      }
+      if (response.ok) {
+        setStatus('online');
+      } else {
         setStatus('offline');
       }
-    };
+    } catch (err) {
+      try {
+        const fallback = await fetch('http://localhost:8584/api/v1/health');
+        setStatus(fallback.ok ? 'online' : 'offline');
+      } catch {
+        setStatus('offline');
+      }
+    }
+  };
 
+  useEffect(() => {
     checkConnection();
+    const timer = setInterval(checkConnection, 10000);
+    return () => clearInterval(timer);
   }, []);
 
   const renderContent = () => {
@@ -63,7 +74,22 @@ export const App: React.FC = () => {
         <p>这里是 DSH 插件 Sirchmunk 的设置页面和功能概览。</p>
         
         <div style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#e9ecef', borderRadius: '8px' }}>
-          <h2 style={{ marginTop: 0 }}>连接状态</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ marginTop: 0, marginBottom: '8px' }}>连接状态</h2>
+            <button
+              onClick={checkConnection}
+              style={{
+                padding: '4px 10px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                borderRadius: '4px',
+                border: '1px solid #ced4da',
+                backgroundColor: '#fff',
+              }}
+            >
+              🔄 检查连接
+            </button>
+          </div>
           <p style={{ margin: '5px 0' }}>
             后台服务 (http://localhost:8584):{' '}
             {status === 'checking' && <span>检查中...</span>}
