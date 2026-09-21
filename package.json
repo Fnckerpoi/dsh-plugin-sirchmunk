@@ -3,6 +3,19 @@
   "version": "1.0.0",
   "description": "DSH-native Sirchmunk settings plugin for graph, cluster, monitoring, history, and privacy workflows.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fnckerpoi/dsh-plugin-sirchmunk.git"
+  },
+  "homepage": "https://github.com/Fnckerpoi/dsh-plugin-sirchmunk#readme",
+  "author": "Fnckerpoi",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "sirchmunk",
+    "knowledge-graph",
+    "plugin"
+  ],
   "type": "module",
   "main": "lib/index.js",
   "exports": {

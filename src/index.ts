@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 export const name = 'dsh-plugin-sirchmunk';
+export const inject = ['skills'];
 
 export interface HostPluginContext {
   logger?: {
